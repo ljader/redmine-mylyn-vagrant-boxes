@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<user>
+  <login>tester1</login>
+  <firstname>Tom</firstname>
+  <lastname>Tester</lastname>
+  <password>abcd1234</password>
+  <mail>tester1@example.com</mail>
+  <auth_source_id></auth_source_id>
+  <must_change_passwd>false</must_change_passwd>
+</user>
