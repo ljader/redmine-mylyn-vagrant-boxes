@@ -36,7 +36,7 @@ redmine::plugin { 'redmine_mylyn_connector' :
   source => 'https://github.com/danmunn/redmine_mylyn_connector.git',
 } ->
 exec {'redmine_configure_hostname_restapi':
-  subscribe   => [Exec['rails_migrations'], Service["apache2"]],
+  subscribe   => [Exec['seed_db'], Service["apache2"]],
   path        => ['/usr/bin', '/usr/sbin', '/bin'],
   environment => ["vg_hostname=$vg_hostname"],
   command     => "ruby $redmine_install_dir/script/rails runner /vagrant/files/configure_redmine.rb -e production",
