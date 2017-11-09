@@ -17,10 +17,10 @@ class { 'passenger':
   passenger_provider     => "gem",
   package_ensure         => "4.0.59",
   include_build_tools    => true,
-  gem_path               => '/var/lib/gems/2.1.0/gems',
+  gem_path               => '/var/lib/gems/2.3.0/gems',
   gem_binary_path        => '/usr/bin/gem',
-  passenger_root         => '/var/lib/gems/2.1.0/gems/passenger-4.0.59',
-  mod_passenger_location => '/var/lib/gems/2.1.0/gems/passenger-4.0.59/buildout/apache2/mod_passenger.so',
+  passenger_root         => '/var/lib/gems/2.3.0/gems/passenger-4.0.59',
+  mod_passenger_location => '/var/lib/gems/2.3.0/gems/passenger-4.0.59/buildout/apache2/mod_passenger.so',
   require => Package["libssl-dev", "zlib1g-dev"]
 } ->
 class { 'redmine':

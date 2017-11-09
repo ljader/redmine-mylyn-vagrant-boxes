@@ -101,8 +101,9 @@ elif [ "${FOUND_APT}" -eq '0' ]; then
         echo '==== [debug] The ruby_json package was not installed (maybe, it was present). Attempting to install librarian-puppet anyway.'
       fi
 
-      if [ -n "$(apt-cache search ruby2.1-dev)" ]; then
-		apt-get -q -y install build-essential ruby2.1 ruby2.1-dev libruby2.1
+      if [ -n "$(apt-cache search ruby2.3-dev)" ]; then
+	    echo '==== [debug] install ruby dev headers'
+		apt-get -q -y install build-essential ruby2.3-dev libruby2.3
       fi
 
       InstallLibrarianPuppetGem
