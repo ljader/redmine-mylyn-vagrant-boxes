@@ -27,6 +27,8 @@ $(which apt-get > /dev/null 2>&1)
 FOUND_APT=$?
 $(which yum > /dev/null 2>&1)
 FOUND_YUM=$?
+$(which puppet > /dev/null 2>&1)
+FOUND_PUPPET=$?
 
 InstallLibrarianPuppetGem () {
   RUBY_VERSION=$(ruby -e 'print RUBY_VERSION')
@@ -68,6 +70,15 @@ elif [ "${FOUND_APT}" -eq '0' ]; then
 
 
   apt-get -q -y update
+
+  # TODO check ruby version and install if nessesary?
+
+  # Make sure Puppet is installed
+  if [ "$FOUND_PUPPET" -ne '0' ]; then
+    echo '==== [debug] Attempting to install Puppet.'
+    apt-get -q -y install puppet
+    echo '==== [debug] Puppet installed.'
+  fi
 
   # Make sure Git is installed
   if [ "$FOUND_GIT" -ne '0' ]; then
