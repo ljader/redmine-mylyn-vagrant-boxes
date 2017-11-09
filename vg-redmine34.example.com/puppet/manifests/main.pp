@@ -39,7 +39,7 @@ exec {'redmine_configure_hostname_restapi':
   subscribe   => [Exec['seed_db'], Service["apache2"]],
   path        => ['/usr/bin', '/usr/sbin', '/bin'],
   environment => ["vg_hostname=$vg_hostname"],
-  command     => "ruby $redmine_install_dir/script/rails runner /vagrant/files/configure_redmine.rb -e production",
+  command     => "ruby $redmine_install_dir/bin/rails runner /vagrant/files/configure_redmine.rb -e production",
   onlyif      => "test ! -f $redmine_install_dir/.data_loaded",
   notify      => [Exec['redmine_create_user_tester1']],
   refreshonly => true,
