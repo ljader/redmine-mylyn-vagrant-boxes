@@ -33,7 +33,7 @@ class { 'redmine':
   vhost_servername => "$vg_hostname",
 } ->
 redmine::plugin { 'redmine_mylyn_connector' :
-  source => 'https://github.com/danmunn/redmine_mylyn_connector.git',
+  source => 'https://github.com/joaopedrotaveira/redmine_mylyn_connector.git',
 } ->
 exec {'redmine_configure_hostname_restapi':
   subscribe   => [Exec['seed_db'], Service["apache2"]],
