@@ -13,9 +13,9 @@
 
 forge "https://forgeapi.puppetlabs.com"
 
-mod "puppetlabs/stdlib"
-mod "puppetlabs/apt"
-mod "puppetlabs/concat"
-mod "puppetlabs/postgresql"
-mod "puppetlabs/passenger"
-mod "johanek/redmine"
+mod "puppetlabs/stdlib", "4.20.0"
+mod "puppetlabs/apt", "2.4.0"
+mod "puppetlabs/concat", "1.2.5"
+mod "puppetlabs/postgresql", "4.9.0"
+mod "puppetlabs/passenger", "0.4.1"
+mod "johanek/redmine", "2.3.0"
