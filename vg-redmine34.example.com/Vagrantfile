@@ -1,0 +1,46 @@
+# -*- mode: ruby -*-
+# vi: set ft=ruby :
+
+vg_hostname = 'vg-redmine26.example.com'
+
+Vagrant.configure("2") do |config|
+  #config.vm.box = "tbfisher/ubuntu1404"
+  #config.vm.box = "ubuntu/trusty64"
+  config.vm.box = "ubuntu/vivid64"
+
+  config.vm.hostname = "#{vg_hostname}"
+
+  config.vm.network :public_network
+
+  config.vm.provider :virtualbox do |vb|
+    # This allows symlinks to be created within the /vagrant root directory,
+    # which is something librarian-puppet needs to be able to do. This might
+    # be enabled by default depending on what version of VirtualBox is used.
+    vb.customize ["setextradata", :id, "VBoxInternal2/SharedFoldersEnableSymlinksCreate/v-root", "1"]
+    vb.customize ["modifyvm", :id, "--memory", "2048"]
+    vb.cpus = 2
+    vb.name = "#{vg_hostname}"
+  end
+
+  # This shell provisioner installs librarian-puppet and runs it to install
+  # puppet modules. This has to be done before the puppet provisioning so that
+  # the modules are available when puppet tries to parse its manifests.
+  config.vm.provision :shell do |shell|
+    shell.path = "shell/librarian-puppet.sh"
+    # uncomment the next line if you want to install the librarian-ruby gem instead the package
+    shell.args = "-g"
+  end
+
+  # Now run the puppet provisioner. Note that the modules directory is entirely
+  # managed by librarian-puppet
+  config.vm.provision :puppet do |puppet|
+    puppet.manifests_path = "puppet/manifests"
+    puppet.manifest_file  = "main.pp"
+    # puppet.options = "--verbose --debug"
+    # puppet.options = "--graph --noop"
+    puppet.facter = {
+      "vg_hostname" => "#{vg_hostname}"
+    }
+  end
+
+end
