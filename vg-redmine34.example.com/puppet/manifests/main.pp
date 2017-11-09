@@ -46,49 +46,49 @@ exec {'redmine_configure_hostname_restapi':
 } ->
 exec {'redmine_create_user_tester1':
   path        => ['/usr/bin', '/usr/sbin', '/bin'],
-  command     => "curl -u admin:admin -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/users.xml -d @/vagrant/files/create_user_tester1.xml",
+  command     => "curl -u admin:abcd1234 -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/users.xml -d @/vagrant/files/create_user_tester1.xml",
   onlyif      => "test ! -f $redmine_install_dir/.data_loaded",
   notify      => [Exec['redmine_create_user_developer1']],
   refreshonly => true,
 } ->
 exec {'redmine_create_user_developer1':
   path        => ['/usr/bin', '/usr/sbin', '/bin'],
-  command     => "curl -u admin:admin -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/users.xml -d @/vagrant/files/create_user_developer1.xml",
+  command     => "curl -u admin:abcd1234 -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/users.xml -d @/vagrant/files/create_user_developer1.xml",
   onlyif      => "test ! -f $redmine_install_dir/.data_loaded",
   notify      => [Exec['redmine_create_project1']],
   refreshonly => true,
 } ->
 exec {'redmine_create_project1':
   path        => ['/usr/bin', '/usr/sbin', '/bin'],
-  command     => "curl -u admin:admin -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/projects.xml -d @/vagrant/files/create_project_project1.xml",
+  command     => "curl -u admin:abcd1234 -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/projects.xml -d @/vagrant/files/create_project_project1.xml",
   onlyif      => "test ! -f $redmine_install_dir/.data_loaded",
   notify      => [Exec['redmine_create_project2']],
   refreshonly => true,
 } ->
 exec {'redmine_create_project2':
   path        => ['/usr/bin', '/usr/sbin', '/bin'],
-  command     => "curl -u admin:admin -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/projects.xml -d @/vagrant/files/create_project_project2.xml",
+  command     => "curl -u admin:abcd1234 -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/projects.xml -d @/vagrant/files/create_project_project2.xml",
   onlyif      => "test ! -f $redmine_install_dir/.data_loaded",
   notify      => [Exec['redmine_create_issue1_for_project1']],
   refreshonly => true,
 } ->
 exec {'redmine_create_issue1_for_project1':
   path        => ['/usr/bin', '/usr/sbin', '/bin'],
-  command     => "curl -u admin:admin -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/issues.xml -d @/vagrant/files/create_issue1_for_project1.xml",
+  command     => "curl -u admin:abcd1234 -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/issues.xml -d @/vagrant/files/create_issue1_for_project1.xml",
   onlyif      => "test ! -f $redmine_install_dir/.data_loaded",
   notify      => [Exec['redmine_create_issue2_for_project1']],
   refreshonly => true,
 } ->
 exec {'redmine_create_issue2_for_project1':
   path        => ['/usr/bin', '/usr/sbin', '/bin'],
-  command     => "curl -u admin:admin -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/issues.xml -d @/vagrant/files/create_issue2_for_project1.xml",
+  command     => "curl -u admin:abcd1234 -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/issues.xml -d @/vagrant/files/create_issue2_for_project1.xml",
   onlyif      => "test ! -f $redmine_install_dir/.data_loaded",
   notify      => [Exec['redmine_create_issue1_for_project2']],
   refreshonly => true,
 } ->
 exec {'redmine_create_issue1_for_project2':
   path        => ['/usr/bin', '/usr/sbin', '/bin'],
-  command     => "curl -u admin:admin -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/issues.xml -d @/vagrant/files/create_issue1_for_project2.xml",
+  command     => "curl -u admin:abcd1234 -X POST -H \'Content-Type: application/xml\' http://$vg_hostname/issues.xml -d @/vagrant/files/create_issue1_for_project2.xml",
   onlyif      => "test ! -f $redmine_install_dir/.data_loaded",
   notify      => [Exec['redmine_mark_data_loaded']],
   refreshonly => true,
