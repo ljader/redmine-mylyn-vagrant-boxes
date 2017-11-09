@@ -5,11 +5,11 @@ PREFER_PACKAGE=1
 while getopts ":g" opt; do
   case $opt in
     g)
-      echo "Using the gem installer"
+      echo "==== [debug] Using the gem installer"
       PREFER_PACKAGE=0
       ;;
     \?)
-      echo "Invalid option: -$OPTARG" >&2
+      echo "==== [debug] Invalid option: -$OPTARG" >&2
       ;;
   esac
 done
@@ -29,8 +29,8 @@ $(which yum > /dev/null 2>&1)
 FOUND_YUM=$?
 
 InstallLibrarianPuppetGem () {
-  echo 'Attempting to install librarian-puppet gem.'
   RUBY_VERSION=$(ruby -e 'print RUBY_VERSION')
+  echo "==== [debug] Attempting to install librarian-puppet gem. (ruby version $RUBY_VERSION)"
   case "$RUBY_VERSION" in
     1.8.*)
       # For ruby 1.8.x librarian-puppet needs to use 'highline' 1.6.x
@@ -43,17 +43,17 @@ InstallLibrarianPuppetGem () {
       gem install --no-ri --no-rdoc librarian-puppet
       ;;
   esac
-  echo 'Librarian-puppet gem installed.'
+  echo '==== [debug] Librarian-puppet gem installed.'
 }
 
 if [ "${FOUND_YUM}" -eq '0' ]; then
 
   # Make sure Git is installed
   if [ "$FOUND_GIT" -ne '0' ]; then
-    echo 'Attempting to install Git.'
+    echo '==== [debug] Attempting to install Git.'
     yum -q -y makecache
     yum -q -y install git
-    echo 'Git installed.'
+    echo '==== [debug] Git installed.'
   fi
 
   # Make sure librarian-puppet is installed
@@ -66,27 +66,28 @@ elif [ "${FOUND_APT}" -eq '0' ]; then
   apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 561F9B9CAC40B2F7
   apt-add-repository ppa:brightbox/ruby-ng
 
+
   apt-get -q -y update
 
   # Make sure Git is installed
   if [ "$FOUND_GIT" -ne '0' ]; then
-    echo 'Attempting to install Git.'
+    echo '==== [debug] Attempting to install Git.'
     apt-get -q -y install git
-    echo 'Git installed.'
+    echo '==== [debug] Git installed.'
   fi
 
   # Make sure librarian-puppet is installed
   if [ "$FOUND_LP" -ne '0' ]; then
     if [ "$PREFER_PACKAGE" -eq 1 -a -n "$(apt-cache search librarian-puppet)" ]; then
        apt-get -q -y install librarian-puppet
-       echo 'Librarian-puppet installed from package'
+       echo '==== [debug] Librarian-puppet installed from package'
     else
       dpkg -s ruby-json >/dev/null 2>&1
       if [ $? -ne 0 -a -n "$(apt-cache search ruby-json)" ]; then
         # Try and install json dependency from package if possible
         apt-get -q -y install ruby-json
       else
-        echo 'The ruby_json package was not installed (maybe, it was present). Attempting to install librarian-puppet anyway.'
+        echo '==== [debug] The ruby_json package was not installed (maybe, it was present). Attempting to install librarian-puppet anyway.'
       fi
 
       if [ -n "$(apt-cache search ruby2.1-dev)" ]; then
@@ -98,7 +99,7 @@ elif [ "${FOUND_APT}" -eq '0' ]; then
   fi
 
 else
-  echo 'No supported package installer available. You may need to install git and librarian-puppet manually.'
+  echo '==== [debug] No supported package installer available. You may need to install git and librarian-puppet manually.'
 fi
 
 if [ ! -d "$PUPPET_DIR" ]; then
@@ -108,3 +109,4 @@ cp /vagrant/puppet/Puppetfile $PUPPET_DIR
 
 cd $PUPPET_DIR && librarian-puppet install
 
+echo '==== [debug] librarian-puppet setup finished'
