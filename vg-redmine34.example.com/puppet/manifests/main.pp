@@ -24,7 +24,7 @@ class { 'passenger':
   require => Package["libssl-dev", "zlib1g-dev"]
 } ->
 class { 'redmine':
-  download_url     => 'http://svn.redmine.org/redmine/branches/2.6-stable',
+  download_url     => 'http://svn.redmine.org/redmine/branches/3.4-stable',
   install_dir      => $redmine_install_dir,
   provider         => 'svn',
   version          => 'HEAD',

@@ -1,4 +1,4 @@
-# Redmine 2.6.x VM by Vagrant & Puppet
+# Redmine 3.4.x VM by Vagrant & Puppet
 
 Box configuration is based on https://github.com/rodjek/librarian-puppet
 
