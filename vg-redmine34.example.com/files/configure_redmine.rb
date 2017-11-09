@@ -14,3 +14,14 @@ for each in settings do
     set.save!
   end
 end
+
+# find your user
+user = User.where(login: 'admin').first
+
+# set new password
+user.password = 'abcd1234'
+user.password_confirmation = 'abcd1234'
+user.must_change_passwd = false
+
+# save changes
+user.save!
