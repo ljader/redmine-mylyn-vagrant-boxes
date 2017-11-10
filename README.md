@@ -9,5 +9,6 @@ Requirements:
 - VirtualBox + Extension Pack
 - Vagrant
 - Shell (can be "Git Bash" on Windows)
+- (for Windows - Powershell at least 3.0 - required by Vagrant)
 - Internet connection
 - Some CPU power since guest VM will compile Passenger Apache module
